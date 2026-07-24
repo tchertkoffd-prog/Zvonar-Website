@@ -2,6 +2,11 @@ import { useState } from "react";
 import { GlowCard } from "./components/ui/spotlight-card";
 import { Spotlight } from "./components/ui/spotlight";
 
+// 1. IMPORT YOUR IMAGES FROM SRC/ASSETS
+import docImage from "./assets/doc.png";
+import techImage from "./assets/tech.png";
+import studioImage from "./assets/studio.jpg";
+
 // Portfolio Data
 const portfolioData = {
   documentary: {
@@ -9,7 +14,7 @@ const portfolioData = {
     categoryCode: "01 / NARRATIVE",
     description: "Editorial architecture for short and long-form narrative films.",
     color: "blue" as const,
-    image: "/doc.png",
+    image: docImage,
     projects: [
       { id: "7CRbUDxEwHQ", title: "The Unfinished Dream", tag: "Short Film" },
       { id: "v5uIMG704_M", title: "Human Banner: Strike For Our Students", tag: "Social Impact" },
@@ -23,7 +28,7 @@ const portfolioData = {
     categoryCode: "02 / VISUALS",
     description: "3D motion design and high-growth enterprise brand storytelling.",
     color: "purple" as const,
-    image: "/tech.png",
+    image: techImage,
     projects: [
       { id: "uIb43DPYzRA", title: "miLife iScan", tag: "3D / Product" },
       { id: "m-18nB3tmfw", title: "Axiom: Enterprise Data Resilience", tag: "Enterprise Tech" },
@@ -35,7 +40,7 @@ const portfolioData = {
     categoryCode: "03 / AUDIO",
     description: "Bespoke music composition, spatial architecture, and kitchen foley.",
     color: "green" as const,
-    image: "/studio.jpg",
+    image: studioImage,
     projects: [
       { id: "MZeH_84BubY", title: "Rising by Zvønår", tag: "Original Score" },
       { id: "WSMXP2IztcQ", title: "Cafe Bustelo: Kitchen Foley", tag: "Sound Design" },
