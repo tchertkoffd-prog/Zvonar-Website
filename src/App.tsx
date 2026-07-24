@@ -67,7 +67,7 @@ export default function App() {
     <div className="min-h-screen bg-black text-zinc-100 flex flex-col items-center justify-center p-4 md:p-8 selection:bg-white selection:text-black">
       <div className="max-w-6xl w-full space-y-20 py-8">
         
-        {/* HERO SECTION WITH SPOTLIGHT & REORDERED ELEMENTS */}
+        {/* HERO SECTION WITH SPOTLIGHT */}
         <section className="relative overflow-hidden rounded-3xl border-t border-t-white/25 border-x border-x-zinc-800/80 border-b border-b-zinc-950 bg-gradient-to-b from-zinc-900/70 via-zinc-950/90 to-black py-20 px-6 text-center max-w-4xl mx-auto shadow-2xl backdrop-blur-md">
           <Spotlight className="-top-40 left-0 md:left-60 md:-top-20" fill="white" />
           <div className="relative z-10 space-y-4">
@@ -78,16 +78,13 @@ export default function App() {
               Clarity in Vision. Authenticity in Sound.
             </p>
             
-            <div className="flex flex-col items-center justify-center pt-6 space-y-6">
+            <div className="flex flex-col items-center justify-center pt-6">
               <a
                 href="#contact"
                 className="px-6 py-3 rounded-lg bg-white text-black font-semibold text-sm hover:bg-zinc-200 transition-all duration-200 shadow-lg hover:scale-105"
               >
                 Book a FREE Consultation
               </a>
-              <p className="text-zinc-400 text-lg md:text-xl max-w-xl mx-auto font-medium tracking-tight">
-                Elevating your business or project one frame at a time!
-              </p>
             </div>
           </div>
         </section>
