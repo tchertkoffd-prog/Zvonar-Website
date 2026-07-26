@@ -1,20 +1,37 @@
 import { useState } from "react";
-import { GlowCard } from "./components/ui/spotlight-card";
 import { Spotlight } from "./components/ui/spotlight";
 
 // 1. IMPORT YOUR IMAGES FROM SRC/ASSETS
-import docImage from "./assets/doc.png";
-import techImage from "./assets/tech.png";
+import rallyImage from "./assets/rally.png";
+import miLifeImage from "./assets/miLife.png";
 import studioImage from "./assets/studio.jpg";
 
 // Portfolio Data
 const portfolioData = {
-  documentary: {
-    label: "Documentary",
-    categoryCode: "01 / NARRATIVE",
-    description: "Editorial architecture for short and long-form narrative films.",
-    color: "blue" as const,
-    image: docImage,
+  signal: {
+    label: "Signal",
+    description: "Integrating UX/UI Design · Simplifying Complex Narratives · Amplifying Your Platform's Identity",
+    image: miLifeImage,
+    projects: [
+      { id: "uIb43DPYzRA", title: "miLife iScan", tag: "3D / Product" },
+      { id: "m-18nB3tmfw", title: "Axiom: Enterprise Data Resilience", tag: "Enterprise Tech" },
+      { id: "vrceqQ-17UA", title: "Visualizing the 4th Dimension", tag: "Abstract 3D" },
+    ],
+  },
+  resonance: {
+    label: "Resonance",
+    description: "Sonic Branding · Tuning Your Frequency · Composing Your Future",
+    image: studioImage,
+    projects: [
+      { id: "MZeH_84BubY", title: "Rising by Zvønår", tag: "Original Score" },
+      { id: "WSMXP2IztcQ", title: "Cafe Bustelo: Kitchen Foley", tag: "Sound Design" },
+      { id: "nDPW494_u0M", title: "Potato Leek Soup: Kitchen Foley", tag: "Sound Design" },
+    ],
+  },
+  chronicle: {
+    label: "Chronicle",
+    description: "Documenting History · Reframing the Future · Cinematic Advocacy",
+    image: rallyImage,
     projects: [
       { id: "7CRbUDxEwHQ", title: "The Unfinished Dream", tag: "Short Film" },
       { id: "v5uIMG704_M", title: "Human Banner: Strike For Our Students", tag: "Social Impact" },
@@ -23,36 +40,12 @@ const portfolioData = {
       { id: "H5IqhoRvTgc", title: "Iconography: The Beginnings in Burlingame", tag: "Arts & Culture" },
     ],
   },
-  tech: {
-    label: "Tech Enterprise",
-    categoryCode: "02 / VISUALS",
-    description: "3D motion design and high-growth enterprise brand storytelling.",
-    color: "purple" as const,
-    image: techImage,
-    projects: [
-      { id: "uIb43DPYzRA", title: "miLife iScan", tag: "3D / Product" },
-      { id: "m-18nB3tmfw", title: "Axiom: Enterprise Data Resilience", tag: "Enterprise Tech" },
-      { id: "vrceqQ-17UA", title: "Visualizing the 4th Dimension", tag: "Abstract 3D" },
-    ],
-  },
-  studio: {
-    label: "Zvønår Studio",
-    categoryCode: "03 / AUDIO",
-    description: "Bespoke music composition, spatial architecture, and kitchen foley.",
-    color: "green" as const,
-    image: studioImage,
-    projects: [
-      { id: "MZeH_84BubY", title: "Rising by Zvønår", tag: "Original Score" },
-      { id: "WSMXP2IztcQ", title: "Cafe Bustelo: Kitchen Foley", tag: "Sound Design" },
-      { id: "nDPW494_u0M", title: "Potato Leek Soup: Kitchen Foley", tag: "Sound Design" },
-    ],
-  },
 };
 
 type CategoryKey = keyof typeof portfolioData;
 
 export default function App() {
-  const [activeCategory, setActiveCategory] = useState<CategoryKey>("documentary");
+  const [activeCategory, setActiveCategory] = useState<CategoryKey>("signal");
   const [activeProjectIndex, setActiveProjectIndex] = useState(0);
 
   const currentCategoryData = portfolioData[activeCategory];
@@ -64,47 +57,69 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-zinc-100 flex flex-col items-center justify-center p-4 md:p-8 selection:bg-white selection:text-black">
-      <div className="max-w-6xl w-full space-y-20 py-8">
+    <div className="min-h-screen bg-black text-zinc-100 flex flex-col items-center justify-between selection:bg-white selection:text-black">
+      
+      {/* STICKY TOP NAVIGATION BAR */}
+      <header className="sticky top-0 z-50 w-full bg-black/80 backdrop-blur-md border-b border-zinc-800/80 px-4 md:px-8 py-4">
+        <div className="max-w-6xl mx-auto flex items-center justify-between">
+          <a href="#" className="font-bold text-lg text-white tracking-wider hover:opacity-90 transition-opacity">
+            Zvønår Productions
+          </a>
+
+          <nav className="flex items-center gap-4 sm:gap-8 text-[10px] sm:text-xs font-mono uppercase tracking-widest">
+            <a href="#services" className="text-zinc-400 hover:text-white transition-colors">Pillars</a>
+            <a href="#showcase" className="text-zinc-400 hover:text-white transition-colors">Story Lab</a>
+            <a href="#about" className="text-zinc-400 hover:text-white transition-colors">About</a>
+            <a
+              href="#contact"
+              className="px-4 py-2 rounded-lg bg-white text-black font-bold hover:bg-zinc-200 transition-all duration-200 shadow-md"
+            >
+              Book a Call
+            </a>
+          </nav>
+        </div>
+      </header>
+
+      <div className="max-w-6xl w-full space-y-20 p-4 md:p-8 py-8 flex-1">
         
-        {/* HERO SECTION WITH SPOTLIGHT */}
-        <section className="relative overflow-hidden rounded-3xl border-t border-t-white/25 border-x border-x-zinc-800/80 border-b border-b-zinc-950 bg-gradient-to-b from-zinc-900/70 via-zinc-950/90 to-black py-20 px-6 text-center max-w-4xl mx-auto shadow-2xl backdrop-blur-md">
+        {/* HERO SECTION - SEAMLESS & CARDLESS */}
+        <section className="relative overflow-hidden py-16 px-6 text-center max-w-4xl mx-auto">
           <Spotlight className="-top-40 left-0 md:left-60 md:-top-20" fill="white" />
-          <div className="relative z-10 space-y-4">
-            <h1 className="text-4xl sm:text-6xl font-bold tracking-tight text-white leading-tight drop-shadow-md">
+          <div className="relative z-10 space-y-6">
+            <h1 className="text-4xl sm:text-7xl font-bold tracking-tight text-white leading-tight drop-shadow-md">
               Zvonar Productions
             </h1>
-            <p className="text-zinc-300 text-lg sm:text-2xl max-w-2xl mx-auto font-light leading-relaxed tracking-wide">
-              Clarity in Vision. Authenticity in Sound.
+            <p className="text-zinc-300 text-lg sm:text-2xl max-w-2xl mx-auto font-light leading-relaxed tracking-wide italic">
+              Reframing Problems. Casting Pearls.
             </p>
             
-            <div className="flex flex-col items-center justify-center pt-6">
+            <div className="flex flex-col items-center justify-center pt-2">
               <a
                 href="#contact"
-                className="px-6 py-3 rounded-lg bg-white text-black font-semibold text-sm hover:bg-zinc-200 transition-all duration-200 shadow-lg hover:scale-105"
+                className="px-10 py-4 rounded-xl bg-white text-black font-bold text-sm hover:bg-zinc-200 transition-all duration-300 shadow-2xl hover:scale-105"
               >
-                Book a FREE Consultation
+                Book a Call
               </a>
             </div>
           </div>
         </section>
 
-        {/* CORE ZVØNÅR PILLARS */}
-        <section className="space-y-6">
-          <div className="text-center">
-            <span className="text-xs font-mono text-zinc-500 uppercase tracking-widest block mb-1">
-              Core Zvønår Pillars
+        {/* ZVØNÅR BUSINESS PILLARS */}
+        <section id="services" className="space-y-8 pt-4">
+          <div className="text-center space-y-2">
+            <span className="text-xs font-mono text-zinc-500 uppercase tracking-[0.3em] block">
+              ZVØNÅR BUSINESS PILLARS
             </span>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
             {(Object.keys(portfolioData) as CategoryKey[]).map((key) => {
               const domain = portfolioData[key];
               const isSelected = activeCategory === key;
 
-              const card3dStyles = isSelected
-                ? "border-t-white/30 border-x-zinc-700 border-b-zinc-800 bg-zinc-900/70 shadow-[0_15px_40px_-5px_rgba(255,255,255,0.12)]"
-                : "border-t-white/15 border-x-zinc-800/80 border-b-zinc-950 bg-zinc-950/40 hover:border-t-white/25 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.9)]";
+              const cardStyles = isSelected
+                ? "border-white/30 bg-zinc-900/50 shadow-[0_0_30px_rgba(255,255,255,0.08)]"
+                : "border-white/10 bg-zinc-950/20 hover:border-white/25 hover:bg-zinc-900/30";
 
               return (
                 <button
@@ -113,66 +128,51 @@ export default function App() {
                     handleCategorySwitch(key);
                     document.getElementById("showcase")?.scrollIntoView({ behavior: "smooth" });
                   }}
-                  className="text-left w-full focus:outline-none"
+                  className="text-left w-full focus:outline-none flex flex-col h-full group"
                 >
-                  <GlowCard
-                    glowColor={domain.color}
-                    size="md"
-                    className={"border transition-all duration-300 flex flex-col overflow-hidden rounded-2xl " + card3dStyles}
-                  >
-                    <img
-                      src={domain.image}
-                      alt={domain.label + " Cover"}
-                      className="aspect-[3/2] w-full object-cover block border-b border-b-zinc-800/80"
-                    />
-                    <div className="space-y-3 p-4 flex-1">
-                      <div className="flex items-center justify-between">
-                        <span className="text-[10px] text-zinc-500 font-mono tracking-widest uppercase">
-                          {domain.categoryCode}
-                        </span>
-                        <span className="text-[10px] font-mono px-2 py-0.5 rounded-full border border-t-white/20 border-zinc-800 text-zinc-400 bg-black/50 shadow-inner">
-                          {domain.projects.length} Works
-                        </span>
-                      </div>
-                      <h3 className="text-white font-semibold text-2xl tracking-tight leading-tight">
+                  <div className={`w-full h-full border rounded-2xl overflow-hidden backdrop-blur-md transition-all duration-300 flex flex-col ${cardStyles}`}>
+                    <div className="aspect-[16/10] overflow-hidden border-b border-white/10">
+                      <img
+                        src={domain.image}
+                        alt={domain.label + " Cover"}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </div>
+                    <div className="p-5 flex-1 flex flex-col justify-start space-y-2">
+                      <h3 className="text-white font-bold text-2xl tracking-tight">
                         {domain.label}
                       </h3>
-                      <p className="text-zinc-400 text-xs leading-relaxed line-clamp-2 flex-1">
+                      <p className="text-zinc-400 text-xs sm:text-sm leading-relaxed font-light">
                         {domain.description}
                       </p>
                     </div>
-                  </GlowCard>
+                  </div>
                 </button>
               );
             })}
           </div>
         </section>
 
-        {/* ZVØN THEATER */}
-        <section id="showcase" className="space-y-8 pt-8 border-t border-t-white/10 border-b border-b-zinc-950 overflow-hidden">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div>
-              <span className="text-xs font-mono text-zinc-500 uppercase tracking-widest block mb-1">
-                Zvøn Theater
-              </span>
-              <h2 className="text-2xl font-bold text-white tracking-tight leading-tight">
-                Zvønår Productions Presents
-              </h2>
-            </div>
+        {/* ZVØN STORY LAB */}
+        <section id="showcase" className="space-y-8 pt-12 border-t border-t-white/10 border-b border-b-zinc-950">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+            <h2 className="text-3xl font-bold text-white tracking-tight leading-tight">
+              ZVØN Story Lab
+            </h2>
 
-            <div className="flex items-center p-1 rounded-xl bg-zinc-900/90 border border-t-white/20 border-zinc-800/80 shrink-0 shadow-[0_0_20px_rgba(255,255,255,0.04)]">
+            <div className="flex items-center p-1.5 rounded-2xl bg-zinc-900/90 border border-white/10 shrink-0">
               {(Object.keys(portfolioData) as CategoryKey[]).map((key) => {
                 const domain = portfolioData[key];
                 const isActive = activeCategory === key;
                 const pillStyle = isActive
-                  ? "bg-white text-black font-semibold shadow-[0_0_20px_rgba(255,255,255,0.35)]"
-                  : "text-zinc-400 hover:text-white";
+                  ? "bg-white text-black font-bold shadow-lg"
+                  : "text-zinc-500 hover:text-white";
 
                 return (
                   <button
                     key={key}
                     onClick={() => handleCategorySwitch(key)}
-                    className={"px-4 py-2 rounded-lg text-xs font-medium transition-all duration-200 shrink-0 " + pillStyle}
+                    className={"px-6 py-2.5 rounded-xl text-[10px] font-mono uppercase tracking-widest transition-all duration-300 shrink-0 " + pillStyle}
                   >
                     {domain.label}
                   </button>
@@ -181,10 +181,10 @@ export default function App() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 bg-gradient-to-b from-zinc-950 via-zinc-950 to-black border-t border-t-white/20 border-x border-x-zinc-800/80 border-b border-b-zinc-950 rounded-2xl p-4 sm:p-6 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9),0_0_50px_rgba(255,255,255,0.04)] overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 bg-zinc-950/40 border border-white/10 rounded-3xl p-4 sm:p-8 shadow-3xl">
             {/* Main Screen */}
-            <div className="lg:col-span-8 space-y-4">
-              <div className="aspect-video w-full rounded-xl overflow-hidden border border-t-white/20 border-zinc-800 bg-black shadow-lg">
+            <div className="lg:col-span-8 space-y-6">
+              <div className="aspect-video w-full rounded-2xl overflow-hidden border border-white/10 bg-black shadow-inner">
                 <iframe
                   key={currentProject.id}
                   className="w-full h-full"
@@ -195,57 +195,43 @@ export default function App() {
                 />
               </div>
 
-              <div className="flex items-center justify-between pt-2 px-1 gap-4 overflow-hidden">
-                <div className="overflow-hidden">
-                  <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest block mb-1">
-                    Now Playing
-                  </span>
-                  <h4 className="text-lg font-semibold text-white mt-0.5 leading-tight truncate">
-                    {currentProject.title}
-                  </h4>
+              <div className="flex items-center justify-between px-2 gap-4">
+                <div>
+                  <span className="text-[10px] font-mono text-zinc-600 uppercase tracking-[0.2em] block mb-1">Now Playing</span>
+                  <h4 className="text-xl font-bold text-white truncate">{currentProject.title}</h4>
                 </div>
-                <span className="text-[10px] font-mono px-2.5 py-1 rounded-md border border-t-white/20 border-zinc-800 text-zinc-400 bg-zinc-900/90 shrink-0 uppercase tracking-wider shadow-[0_0_10px_rgba(255,255,255,0.05)]">
+                <span className="text-[10px] font-mono px-3 py-1.5 rounded-lg border border-white/10 text-zinc-400 bg-zinc-900/50 uppercase tracking-widest shadow-lg">
                   {currentProject.tag}
                 </span>
               </div>
             </div>
 
             {/* Sidebar Playlist */}
-            <div className="lg:col-span-4 flex flex-col justify-between space-y-4 border-t lg:border-t-0 lg:border-l border-t-white/10 lg:border-l-white/10 border-zinc-900 pt-4 lg:pt-0 lg:pl-6 overflow-hidden">
-              <div className="space-y-3 overflow-hidden flex-1 flex flex-col">
-                <span className="text-xs font-mono text-zinc-500 uppercase tracking-widest block mb-2">
-                  Playlist / {currentCategoryData.label}
-                </span>
+            <div className="lg:col-span-4 flex flex-col justify-between space-y-6 border-t lg:border-t-0 lg:border-l border-white/5 pt-6 lg:pt-0 lg:pl-8">
+              <div className="space-y-4 flex-1 flex flex-col">
+                <span className="text-[10px] font-mono text-zinc-600 uppercase tracking-widest mb-2 block">Playlist / {currentCategoryData.label}</span>
 
-                <div className="space-y-2 flex-1 overflow-y-auto pr-1 max-h-[360px]">
+                <div className="space-y-2.5 flex-1 overflow-y-auto pr-2 max-h-[400px]">
                   {currentCategoryData.projects.map((project, idx) => {
                     const isPlaying = activeProjectIndex === idx;
-                    const playlistBtn3d = isPlaying
-                      ? "bg-zinc-900 border-t-white/30 border-zinc-700 text-white shadow-[0_4px_20px_rgba(255,255,255,0.08)]"
-                      : "bg-zinc-950/50 border-t-white/10 border-zinc-800/70 text-zinc-400 hover:border-t-white/20 hover:border-zinc-700 hover:text-zinc-200";
+                    const playlistBtnStyle = isPlaying
+                      ? "bg-white/10 border-white/20 text-white shadow-lg"
+                      : "bg-transparent border-white/5 text-zinc-500 hover:border-white/10 hover:text-zinc-200";
 
                     return (
                       <button
                         key={project.id + idx}
                         onClick={() => setActiveProjectIndex(idx)}
-                        className={"w-full text-left p-3 rounded-xl border transition-all duration-200 flex items-start justify-between gap-3 " + playlistBtn3d}
+                        className={"w-full text-left p-4 rounded-xl border transition-all duration-300 flex items-start justify-between gap-4 " + playlistBtnStyle}
                       >
-                        <div className="space-y-1 overflow-hidden">
-                          <p className="text-xs font-medium leading-snug line-clamp-2">
-                            {project.title}
-                          </p>
-                          <span className="text-[10px] text-zinc-500 font-mono block">
-                            {project.tag}
-                          </span>
+                        <div className="space-y-1">
+                          <p className="text-[13px] font-semibold leading-tight">{project.title}</p>
+                          <span className="text-[10px] text-zinc-600 font-mono block">{project.tag}</span>
                         </div>
                         {isPlaying ? (
-                          <span className="text-[10px] text-emerald-400 font-mono shrink-0 uppercase tracking-wider">
-                            Playing
-                          </span>
+                          <span className="text-[9px] text-emerald-400 font-mono uppercase animate-pulse">Live</span>
                         ) : (
-                          <span className="text-[10px] text-zinc-600 font-mono shrink-0">
-                            {"0" + (idx + 1)}
-                          </span>
+                          <span className="text-[10px] text-zinc-700 font-mono">{"0" + (idx + 1)}</span>
                         )}
                       </button>
                     );
@@ -253,58 +239,76 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="p-3 rounded-xl bg-zinc-900/50 border border-t-white/15 border-zinc-800/70 text-xs text-zinc-500 font-mono flex items-center justify-between overflow-hidden shadow-[0_4px_15px_rgba(0,0,0,0.5)]">
-                <span>Total Items</span>
-                <span className="text-zinc-300 font-semibold">{currentCategoryData.projects.length} Works</span>
+              <div className="p-4 rounded-2xl bg-black/40 border border-white/5 text-[10px] text-zinc-600 font-mono flex items-center justify-between">
+                <span>TOTAL WORKS</span>
+                <span className="text-zinc-300 font-bold">{currentCategoryData.projects.length}</span>
               </div>
             </div>
           </div>
         </section>
 
-        {/* CALENDLY DIRECT EMBED */}
-        <section id="contact" className="space-y-8 pt-12 border-t border-t-white/10 border-b border-b-zinc-950 overflow-hidden">
-          <div className="text-center space-y-2 max-w-2xl mx-auto">
-            <span className="text-xs font-mono text-zinc-500 uppercase tracking-widest block mb-1">
-              Contact Zvønår Now
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight leading-tight">
-              Schedule a FREE Consultation
-            </h2>
-            <p className="text-zinc-400 text-sm max-w-lg mx-auto">
-              Select an available date and time below to discuss upgrading your project or business! Free 15min Consultation!
-            </p>
+        {/* CALENDLY */}
+        <section id="contact" className="space-y-10 pt-12 border-t border-white/5">
+          <div className="text-center space-y-3 max-w-2xl mx-auto">
+            <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-[0.3em] block mb-1">Book Now</span>
+            <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">Schedule a FREE Consultation</h2>
+            <p className="text-zinc-500 text-sm leading-relaxed">Discuss upgrading your project with 15 minutes of direct expert consultation.</p>
           </div>
 
-          <div className="w-full max-w-4xl mx-auto rounded-2xl border-t border-t-white/20 border-x border-x-zinc-800/80 border-b border-b-zinc-950 bg-zinc-950/60 overflow-hidden shadow-[0_20px_60px_-10px_rgba(255,255,255,0.06)]">
+          <div className="w-full max-w-5xl mx-auto rounded-3xl border border-white/10 bg-zinc-950/60 overflow-hidden shadow-3xl">
             <iframe
               src="https://calendly.com/tchertkoffd-zvonarproductions/new-meeting?hide_landing_page_details=1&hide_gdpr_banner=1&background_color=000000&text_color=ffffff&primary_color=ffffff"
               width="100%"
               height="700"
               frameBorder="0"
-              title="Schedule a Consultation with Zvonar Productions"
-              className="w-full border-0 min-h-[700px] block"
+              title="Schedule a Consultation"
+              className="w-full min-h-[700px] block"
             />
           </div>
         </section>
 
-        {/* BRAND FOOTER */}
-        <footer className="pt-8 text-center text-xs text-zinc-400 space-y-4 font-mono">
-          <div className="flex flex-col lg:flex-row items-center justify-center gap-3 py-6 px-6 rounded-2xl bg-zinc-950/60 border-t border-t-white/15 border-x border-x-zinc-800/80 border-b border-b-zinc-950 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.8)]">
-            <span className="font-semibold text-white tracking-wider">Zvønår Productions</span>
-            <span className="hidden lg:inline text-zinc-700">|</span>
-            <span>1 Sansome St, Suite 1400, San Francisco, CA 94104</span>
-            <span className="hidden lg:inline text-zinc-700">|</span>
-            <a href="tel:4153909654" className="hover:text-white transition-colors duration-150">
-              (415) 390-9654 x800
-            </a>
-            <span className="hidden lg:inline text-zinc-700">|</span>
-            <a href="mailto:tchertkoffd@ZvonarProductions.com" className="hover:text-white transition-colors duration-150">
-              tchertkoffd@ZvonarProductions.com
-            </a>
+        {/* ABOUT ZVØNÅR SECTION */}
+        <section id="about" className="relative space-y-12 pt-20 border-t border-white/5">
+          <Spotlight className="top-0 left-1/2 -translate-x-1/2 opacity-20" fill="white" />
+          <div className="text-center space-y-4 relative z-10">
+            <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-[0.3em] block">Mission / About</span>
+            <h2 className="text-4xl sm:text-6xl font-bold text-white tracking-tighter leading-none">About ZVØNÅR</h2>
+            <p className="text-zinc-400 text-lg sm:text-xl font-light italic max-w-2xl mx-auto">
+              Sowing the seeds. Harvesting your hidden gems.
+            </p>
           </div>
-          <p className="text-[10px] text-zinc-600">
-            © {new Date().getFullYear()} Zvønår Productions. All rights reserved.
-          </p>
+
+          <div className="max-w-3xl mx-auto space-y-6 text-zinc-300 leading-relaxed text-base sm:text-lg font-light px-4 relative z-10">
+            <p>
+              Zvonar Productions is a San Francisco Bay Area media production company built on one belief:{" "}
+              <span className="text-white font-medium">science and art solve problems better together.</span>
+            </p>
+            
+            <p>
+              In the ZVØN Story Lab, we plan, experiment, and reframe narratives around your specific business needs — 
+              transforming complexity into cinematic clarity. The result is content that integrates seamlessly into your platform 
+              and elevates it to its fullest market potential.
+            </p>
+
+            <p>
+              From sizzle reels and short films to documentary-form training and internal communications — 
+              every frame is crafted with purpose, and every note is tuned to your brand.
+            </p>
+          </div>
+        </section>
+
+        {/* BRAND FOOTER */}
+        <footer className="pt-12 text-center text-[10px] text-zinc-500 space-y-6 font-mono tracking-widest uppercase">
+          <div className="flex flex-col lg:flex-row items-center justify-center gap-4 py-8 px-8 rounded-3xl bg-zinc-950/60 border border-white/5 shadow-2xl">
+            <span className="font-bold text-white">Zvønår Productions</span>
+            <span className="hidden lg:inline text-zinc-800">|</span>
+            <span>1 Sansome St, Suite 1400, San Francisco</span>
+            <span className="hidden lg:inline text-zinc-800">|</span>
+            <a href="tel:4153909654" className="hover:text-white transition-colors">(415) 390-9654 x800</a>
+            <span className="hidden lg:inline text-zinc-800">|</span>
+            <a href="mailto:tchertkoffd@ZvonarProductions.com" className="hover:text-white transition-colors lowercase tracking-normal">tchertkoffd@ZvonarProductions.com</a>
+          </div>
+          <p className="text-zinc-700">© {new Date().getFullYear()} Zvønår Productions. All rights reserved.</p>
         </footer>
 
       </div>
