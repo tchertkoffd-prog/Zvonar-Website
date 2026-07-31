@@ -13,6 +13,16 @@ const portfolioData = {
     description: "Integrating UX/UI Design · Simplifying Complex Narratives · Amplifying Your Platform's Identity",
     image: miLifeImage,
     projects: [
+      {
+        id: "61OEx9lLGUk",
+        title: "Audio-Technica ATH-M40x",
+        tag: "Spec Commercial",
+        bts: {
+          brief: "A self-initiated spec spot for the Audio-Technica ATH-M40x — not a paid campaign, but a full 30-second commercial built solo, start to finish, to show what this studio can do: concept, direction, shooting, and sound design all in one hand.",
+          story: "The narrative centers on a mistake every producer has made: trusting the wrong pair of headphones to judge a final mix. Our hero finishes a track, hears it fall flat, and nearly gives up — until he learns his new ATH-M40x needs to run through an amp for accurate sound.",
+          craft: "Real DAW screen capture, a flat-vs-rich audio contrast as the emotional turn, and a genuinely useful tip folded into the story. Zero dialogue — the whole arc is carried by his face, his gear, and the moment the mix finally sounds right.",
+        },
+      },
       { id: "uIb43DPYzRA", title: "miLife iScan", tag: "3D / Product" },
       { id: "m-18nB3tmfw", title: "Axiom: Enterprise Data Resilience", tag: "Enterprise Tech" },
       { id: "vrceqQ-17UA", title: "Visualizing the 4th Dimension", tag: "Abstract 3D" },
@@ -47,13 +57,21 @@ type CategoryKey = keyof typeof portfolioData;
 export default function App() {
   const [activeCategory, setActiveCategory] = useState<CategoryKey>("signal");
   const [activeProjectIndex, setActiveProjectIndex] = useState(0);
+  const [showBTS, setShowBTS] = useState(false);
 
   const currentCategoryData = portfolioData[activeCategory];
   const currentProject = currentCategoryData.projects[activeProjectIndex] || currentCategoryData.projects[0];
+  const currentBTS = "bts" in currentProject ? currentProject.bts : undefined;
 
   const handleCategorySwitch = (catKey: CategoryKey) => {
     setActiveCategory(catKey);
     setActiveProjectIndex(0);
+    setShowBTS(false);
+  };
+
+  const handleProjectSwitch = (idx: number) => {
+    setActiveProjectIndex(idx);
+    setShowBTS(false);
   };
 
   return (
@@ -204,6 +222,27 @@ export default function App() {
                   {currentProject.tag}
                 </span>
               </div>
+
+              {currentBTS && (
+                <div className="border border-white/10 rounded-2xl bg-black/30 overflow-hidden">
+                  <button
+                    onClick={() => setShowBTS((v) => !v)}
+                    className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-white/5 transition-colors"
+                  >
+                    <span className="text-[11px] font-mono text-zinc-300 uppercase tracking-widest">
+                      Behind the Scenes
+                    </span>
+                    <span className="text-zinc-500 text-xs font-mono">{showBTS ? "− Hide" : "+ Read"}</span>
+                  </button>
+                  {showBTS && (
+                    <div className="px-5 pb-6 pt-1 space-y-4 text-sm text-zinc-400 leading-relaxed font-light border-t border-white/5">
+                      <p><span className="text-zinc-200 font-medium">The Brief:</span> {currentBTS.brief}</p>
+                      <p><span className="text-zinc-200 font-medium">The Story:</span> {currentBTS.story}</p>
+                      <p><span className="text-zinc-200 font-medium">The Craft:</span> {currentBTS.craft}</p>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
 
             {/* Sidebar Playlist */}
@@ -223,7 +262,7 @@ export default function App() {
                     return (
                       <button
                         key={`${project.id}-${idx}`}
-                        onClick={() => setActiveProjectIndex(idx)}
+                        onClick={() => handleProjectSwitch(idx)}
                         className={`w-full text-left p-4 rounded-xl border transition-all duration-300 flex items-start justify-between gap-4 ${playlistBtnStyle}`}
                       >
                         <div className="space-y-1">
