@@ -110,7 +110,11 @@ export default function App() {
             <p className="text-zinc-300 text-lg sm:text-2xl max-w-2xl mx-auto font-light leading-relaxed tracking-wide italic">
               Reframing Problems. Casting Pearls.
             </p>
-            
+
+            <p className="text-zinc-500 text-sm sm:text-base max-w-xl mx-auto font-light">
+              Commercial, sonic, and documentary production for brands and businesses in the San Francisco Bay Area.
+            </p>
+
             <div className="flex flex-col items-center justify-center pt-2">
               <a
                 href="#contact"
