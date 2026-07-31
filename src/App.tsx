@@ -292,6 +292,34 @@ export default function App() {
           </div>
         </section>
 
+        {/* WHAT EVERY PROJECT INCLUDES */}
+        <section className="space-y-8 pt-12 border-t border-white/5">
+          <div className="text-center space-y-2">
+            <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-[0.3em] block">
+              Process
+            </span>
+            <h2 className="text-3xl font-bold text-white tracking-tight">What Every Project Includes</h2>
+          </div>
+
+          <div className="max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
+            {[
+              "4K master file + 1080p web-optimized cut",
+              "Color correction and audio mastering",
+              "SRT closed captions file",
+              "Textless master for future localization",
+              "Licensed stock/music manifest at delivery",
+              "Two (2) rounds of revisions",
+              "Frame.io review link for consolidated feedback",
+              "48-hour turnaround on feedback rounds",
+            ].map((item) => (
+              <div key={item} className="flex items-start gap-3 text-zinc-300 text-sm font-light">
+                <span className="text-emerald-400 mt-0.5 shrink-0">✓</span>
+                <span>{item}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* CALENDLY */}
         <section id="contact" className="space-y-10 pt-12 border-t border-white/5">
           <div className="text-center space-y-3 max-w-2xl mx-auto">
