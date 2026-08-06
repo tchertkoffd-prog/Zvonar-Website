@@ -1,5 +1,8 @@
 import { useState } from "react";
+import type { SubmitEvent } from "react";
 import { Spotlight } from "./components/ui/spotlight";
+
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/mqpzaqwl";
 
 // 1. IMPORT YOUR IMAGES FROM SRC/ASSETS
 import LaborStreetImage from "./assets/LaborStreet.png";
@@ -74,6 +77,29 @@ export default function App() {
     setShowBTS(false);
   };
 
+  const [formStatus, setFormStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+
+  const handleContactSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setFormStatus("submitting");
+    const form = e.currentTarget;
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { Accept: "application/json" },
+      });
+      if (res.ok) {
+        setFormStatus("success");
+        form.reset();
+      } else {
+        setFormStatus("error");
+      }
+    } catch {
+      setFormStatus("error");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-black text-zinc-100 flex flex-col items-center justify-between selection:bg-white selection:text-black">
       
@@ -92,7 +118,7 @@ export default function App() {
               href="#contact"
               className="px-4 py-2 rounded-lg bg-white text-black font-bold hover:bg-zinc-200 transition-all duration-200 shadow-md"
             >
-              Book a Call
+              Contact
             </a>
           </nav>
         </div>
@@ -120,7 +146,7 @@ export default function App() {
                 href="#contact"
                 className="px-10 py-4 rounded-xl bg-white text-black font-bold text-sm hover:bg-zinc-200 transition-all duration-300 shadow-2xl hover:scale-105"
               >
-                Book a Call
+                Contact
               </a>
             </div>
           </div>
@@ -320,23 +346,79 @@ export default function App() {
           </div>
         </section>
 
-        {/* CALENDLY */}
+        {/* CONTACT */}
         <section id="contact" className="space-y-10 pt-12 border-t border-white/5">
           <div className="text-center space-y-3 max-w-2xl mx-auto">
-            <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-[0.3em] block mb-1">Book Now</span>
-            <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">Schedule a FREE Consultation</h2>
-            <p className="text-zinc-500 text-sm leading-relaxed">Discuss upgrading your project with 15 minutes of direct expert consultation.</p>
+            <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-[0.3em] block mb-1">Get In Touch</span>
+            <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">Let's Talk About Your Project</h2>
+            <p className="text-zinc-500 text-sm leading-relaxed">Tell us a bit about what you need — we'll get back to you within 1 business day.</p>
           </div>
 
-          <div className="w-full max-w-5xl mx-auto rounded-3xl border border-white/10 bg-zinc-950/60 overflow-hidden shadow-3xl">
-            <iframe
-              src="https://calendly.com/tchertkoffd-zvonarproductions/new-meeting?hide_landing_page_details=1&hide_gdpr_banner=1&background_color=000000&text_color=ffffff&primary_color=ffffff"
-              width="100%"
-              height="700"
-              frameBorder="0"
-              title="Schedule a Consultation"
-              className="w-full min-h-[700px] block"
-            />
+          <div className="w-full max-w-2xl mx-auto rounded-3xl border border-white/10 bg-zinc-950/60 p-6 sm:p-10 shadow-3xl">
+            {formStatus === "success" ? (
+              <div className="text-center py-10 space-y-2">
+                <p className="text-white font-bold text-lg">Message sent.</p>
+                <p className="text-zinc-400 text-sm">Thanks for reaching out — we'll get back to you within 1 business day.</p>
+              </div>
+            ) : (
+              <form onSubmit={handleContactSubmit} className="space-y-5">
+                <input type="hidden" name="_subject" value="New inquiry from Zvonar Productions website" />
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div className="space-y-1.5">
+                    <label htmlFor="name" className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest block">Name</label>
+                    <input
+                      id="name"
+                      name="name"
+                      type="text"
+                      required
+                      className="w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-white/30 transition-colors"
+                      placeholder="Jane Smith"
+                    />
+                  </div>
+                  <div className="space-y-1.5">
+                    <label htmlFor="email" className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest block">Email</label>
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      required
+                      className="w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-white/30 transition-colors"
+                      placeholder="jane@company.com"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-1.5">
+                  <label htmlFor="message" className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest block">Message</label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    required
+                    rows={5}
+                    className="w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-white/30 transition-colors resize-none"
+                    placeholder="Tell us about your project..."
+                  />
+                </div>
+
+                {formStatus === "error" && (
+                  <p className="text-red-400 text-xs">
+                    Something went wrong. Please email us directly at{" "}
+                    <a href="mailto:tchertkoffd@zvonarproductions.com" className="underline hover:text-red-300">
+                      tchertkoffd@zvonarproductions.com
+                    </a>.
+                  </p>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={formStatus === "submitting"}
+                  className="w-full px-6 py-3.5 rounded-xl bg-white text-black font-bold text-sm hover:bg-zinc-200 transition-all duration-200 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {formStatus === "submitting" ? "Sending..." : "Send Message"}
+                </button>
+              </form>
+            )}
           </div>
         </section>
 
