@@ -318,6 +318,36 @@ export default function App() {
           </div>
         </section>
 
+        {/* ABOUT ZVØNÅR SECTION */}
+        <section id="about" className="relative space-y-12 pt-12 border-t border-white/5 overflow-hidden">
+          <Spotlight className="-top-20 left-1/2 -translate-x-1/2 opacity-30" fill="white" />
+          <div className="text-center space-y-4 relative z-10">
+            <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-[0.3em] block">Mission / About</span>
+            <h2 className="text-4xl sm:text-6xl font-bold text-white tracking-tighter leading-none">About ZVØNÅR</h2>
+            <p className="text-zinc-400 text-lg sm:text-xl font-light italic max-w-2xl mx-auto">
+              Sowing the seeds. Harvesting your hidden gems.
+            </p>
+          </div>
+
+          <div className="max-w-3xl mx-auto space-y-6 text-zinc-300 leading-relaxed text-base sm:text-lg font-light px-4 relative z-10">
+            <p>
+              Zvonar Productions is a San Francisco Bay Area media production company built on one belief:{" "}
+              <span className="text-white font-medium">science and art solve problems better together.</span>
+            </p>
+
+            <p>
+              In the ZVØN Story Lab, we plan, experiment, and reframe narratives around your specific business needs —
+              transforming complexity into cinematic clarity. The result is content that integrates seamlessly into your platform
+              and elevates it to its fullest market potential.
+            </p>
+
+            <p>
+              From sizzle reels and short films to documentary-form training and internal communications —
+              every frame is crafted with purpose, and every note is tuned to your brand.
+            </p>
+          </div>
+        </section>
+
         {/* WHAT EVERY PROJECT INCLUDES */}
         <section className="space-y-8 pt-12 border-t border-white/5">
           <div className="text-center space-y-2">
@@ -419,36 +449,6 @@ export default function App() {
                 </button>
               </form>
             )}
-          </div>
-        </section>
-
-        {/* ABOUT ZVØNÅR SECTION */}
-        <section id="about" className="relative space-y-12 pt-20 border-t border-white/5 overflow-hidden">
-          <Spotlight className="-top-20 left-1/2 -translate-x-1/2 opacity-30" fill="white" />
-          <div className="text-center space-y-4 relative z-10">
-            <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-[0.3em] block">Mission / About</span>
-            <h2 className="text-4xl sm:text-6xl font-bold text-white tracking-tighter leading-none">About ZVØNÅR</h2>
-            <p className="text-zinc-400 text-lg sm:text-xl font-light italic max-w-2xl mx-auto">
-              Sowing the seeds. Harvesting your hidden gems.
-            </p>
-          </div>
-
-          <div className="max-w-3xl mx-auto space-y-6 text-zinc-300 leading-relaxed text-base sm:text-lg font-light px-4 relative z-10">
-            <p>
-              Zvonar Productions is a San Francisco Bay Area media production company built on one belief:{" "}
-              <span className="text-white font-medium">science and art solve problems better together.</span>
-            </p>
-            
-            <p>
-              In the ZVØN Story Lab, we plan, experiment, and reframe narratives around your specific business needs — 
-              transforming complexity into cinematic clarity. The result is content that integrates seamlessly into your platform 
-              and elevates it to its fullest market potential.
-            </p>
-
-            <p>
-              From sizzle reels and short films to documentary-form training and internal communications — 
-              every frame is crafted with purpose, and every note is tuned to your brand.
-            </p>
           </div>
         </section>
 
